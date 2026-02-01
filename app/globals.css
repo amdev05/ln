@@ -1,26 +1,50 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+.epub-content p {
+  margin-bottom: 1.5rem;
+  text-align: justify;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.epub-content h1,
+.epub-content h2,
+.epub-content h3,
+.epub-content h4,
+.epub-content h5,
+.epub-content h6 {
+  font-weight: bold;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.epub-content h1 {
+  font-size: 2rem;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.epub-content h2 {
+  font-size: 1.75rem;
+}
+
+.epub-content h3 {
+  font-size: 1.5rem;
+}
+
+.epub-section {
+  margin-bottom: 2rem;
+}
+
+.epub-content img {
+  max-width: 100%;
+  height: auto;
+  margin: 2rem auto;
+  display: block;
+}
+
+.epub-content blockquote {
+  border-left: 4px solid #ccc;
+  padding-left: 1rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+  color: #555;
 }
