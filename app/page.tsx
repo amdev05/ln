@@ -1,11 +1,26 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { ReactReader, ReactReaderStyle } from "react-reader";
 
 export default function Home() {
   const [location, setLocation] = useState<string | number>(0);
+  const [page, setPage] = useState({ current: 0, total: 0 });
   const renditionRef = useRef<any>(null);
+
+  // Load saved location on mount
+  useEffect(() => {
+    const savedLocation = localStorage.getItem("epub-location");
+    if (savedLocation) {
+      setLocation(savedLocation);
+    }
+  }, []);
+
+  // Save location when it changes
+  const handleLocationChange = (loc: string) => {
+    setLocation(loc);
+    localStorage.setItem("epub-location", loc);
+  };
 
   const customStyles: typeof ReactReaderStyle = {
     ...ReactReaderStyle,
@@ -34,7 +49,7 @@ export default function Home() {
           <ReactReader
             url="/COTE-Y3V3.epub"
             location={location}
-            locationChanged={(loc: string) => setLocation(loc)}
+            locationChanged={handleLocationChange}
             readerStyles={customStyles}
             getRendition={(rendition) => {
               renditionRef.current = rendition;
