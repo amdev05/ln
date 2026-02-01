@@ -7,7 +7,7 @@ export default function Home() {
   const [location, setLocation] = useState<string | number>(0);
   const renditionRef = useRef<any>(null);
 
-  const customStyles: ReactReaderStyle = {
+  const customStyles: typeof ReactReaderStyle = {
     ...ReactReaderStyle,
     arrow: {
       ...ReactReaderStyle.arrow,
