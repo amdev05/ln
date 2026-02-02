@@ -76,24 +76,61 @@ export default function Home() {
 
               // Auto-replace "saya" with "aku" and "anda" with "kamu" in displayed content
               rendition.hooks.content.register((contents: any) => {
+                let isReplacing = false;
+
                 const replaceText = (node: Node) => {
+                  if (isReplacing) return;
+
                   if (node.nodeType === Node.TEXT_NODE) {
                     if (node.textContent) {
+                      const original = node.textContent;
+                      let modified = original;
+
+                      // Replace whole words only using word boundaries
                       // Replace "Saya" (capital) with "Aku"
-                      node.textContent = node.textContent.replace(/Saya/g, "Aku");
+                      modified = modified.replace(/\bSaya\b/g, "Aku");
                       // Replace "saya" (lowercase) with "aku"
-                      node.textContent = node.textContent.replace(/saya/g, "aku");
+                      modified = modified.replace(/\bsaya\b/g, "aku");
                       // Replace "Anda" (capital) with "Kamu"
-                      node.textContent = node.textContent.replace(/Anda/g, "Kamu");
+                      modified = modified.replace(/\bAnda\b/g, "Kamu");
                       // Replace "anda" (lowercase) with "kamu"
-                      node.textContent = node.textContent.replace(/anda/g, "kamu");
+                      modified = modified.replace(/\banda\b/g, "kamu");
+
+                      // Only update if text actually changed
+                      if (modified !== original) {
+                        isReplacing = true;
+                        node.textContent = modified;
+                        isReplacing = false;
+                      }
                     }
-                  } else {
+                  } else if (node.childNodes) {
                     node.childNodes.forEach(replaceText);
                   }
                 };
 
+                // Initial replace
                 replaceText(contents.document.body);
+
+                // Watch for Chrome Translate changes with MutationObserver
+                const observer = new MutationObserver((mutations) => {
+                  if (isReplacing) return;
+
+                  mutations.forEach((mutation) => {
+                    if (mutation.type === "characterData" && mutation.target.nodeType === Node.TEXT_NODE) {
+                      replaceText(mutation.target);
+                    } else if (mutation.type === "childList") {
+                      mutation.addedNodes.forEach((node) => {
+                        replaceText(node);
+                      });
+                    }
+                  });
+                });
+
+                observer.observe(contents.document.body, {
+                  childList: true,
+                  subtree: true,
+                  characterData: true,
+                });
               });
             }}
           />
