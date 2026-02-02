@@ -5,7 +5,6 @@ import { ReactReader, ReactReaderStyle } from "react-reader";
 
 export default function Home() {
   const [location, setLocation] = useState<string | number>(0);
-  const [page, setPage] = useState({ current: 0, total: 0 });
   const renditionRef = useRef<any>(null);
 
   // Load saved location on mount
@@ -53,6 +52,8 @@ export default function Home() {
             readerStyles={customStyles}
             getRendition={(rendition) => {
               renditionRef.current = rendition;
+
+              // Apply custom styles
               rendition.themes.default({
                 body: {
                   "font-family": "Georgia, serif !important",
@@ -71,6 +72,28 @@ export default function Home() {
                   "margin-bottom": "1rem !important",
                   "font-weight": "bold !important",
                 },
+              });
+
+              // Auto-replace "saya" with "aku" and "anda" with "kamu" in displayed content
+              rendition.hooks.content.register((contents: any) => {
+                const replaceText = (node: Node) => {
+                  if (node.nodeType === Node.TEXT_NODE) {
+                    if (node.textContent) {
+                      // Replace "Saya" (capital) with "Aku"
+                      node.textContent = node.textContent.replace(/Saya/g, "Aku");
+                      // Replace "saya" (lowercase) with "aku"
+                      node.textContent = node.textContent.replace(/saya/g, "aku");
+                      // Replace "Anda" (capital) with "Kamu"
+                      node.textContent = node.textContent.replace(/Anda/g, "Kamu");
+                      // Replace "anda" (lowercase) with "kamu"
+                      node.textContent = node.textContent.replace(/anda/g, "kamu");
+                    }
+                  } else {
+                    node.childNodes.forEach(replaceText);
+                  }
+                };
+
+                replaceText(contents.document.body);
               });
             }}
           />
