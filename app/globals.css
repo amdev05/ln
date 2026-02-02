@@ -1,7 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
+@import "tailwindcss";
 .epub-content p {
   margin-bottom: 1.5rem;
   text-align: justify;

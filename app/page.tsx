@@ -43,9 +43,9 @@ export default function Home() {
   };
 
   return (
-    <div className="bg-[#f5f5f0] py-4 px-2 md:py-8 md:px-4">
-      <div className="mx-auto max-w-[700px]">
-        <div className="bg-white shadow-lg rounded-sm overflow-hidden" style={{ height: "85vh" }}>
+    <div className="bg-[#f5f5f0] h-dvh py-2 px-2 md:py-4 md:px-4">
+      <div className="mx-auto max-w-[1200px] h-full flex flex-col">
+        <div className="flex-1 bg-white shadow-lg rounded-sm overflow-hidden" style={{ height: "85vh" }}>
           <ReactReader
             url="/COTE-Y3V3.epub"
             location={location}
@@ -75,12 +75,24 @@ export default function Home() {
             }}
           />
         </div>
-        <div className="flex gap-4 mt-4">
-          <button onClick={goPrev} className="flex-1 bg-white hover:bg-gray-50 text-gray-800 font-semibold py-3 px-6 rounded-sm shadow-lg transition-colors">
-            ← Previous
+        <div className="flex gap-2 mt-2">
+          <button
+            onClick={goPrev}
+            className="flex-1 bg-white hover:bg-gray-50 text-gray-800 font-semibold py-3 px-6 rounded-sm shadow-lg transition-colors flex items-center justify-center gap-2 cursor-pointer"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+              <path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m15 18l-6-6l6-6" />
+            </svg>
+            Previous
           </button>
-          <button onClick={goNext} className="flex-1 bg-white hover:bg-gray-50 text-gray-800 font-semibold py-3 px-6 rounded-sm shadow-lg transition-colors">
-            Next →
+          <button
+            onClick={goNext}
+            className="flex-1 bg-white hover:bg-gray-50 text-gray-800 font-semibold py-3 px-6 rounded-sm shadow-lg transition-colors flex items-center justify-center gap-2 cursor-pointer"
+          >
+            Next
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+              <path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m9 18l6-6l-6-6" />
+            </svg>
           </button>
         </div>
       </div>
