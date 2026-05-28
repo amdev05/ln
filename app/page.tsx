@@ -5,6 +5,7 @@ import Link from "next/link";
 const EPUB_FILES = [
   { id: "y0v0", name: "Year 0 Volume 0", path: "/COTE-Y0V0.epub" },
   { id: "y3v3", name: "Year 3 Volume 3", path: "/COTE-Y3V3.epub" },
+  { id: "y3v4", name: "Year 3 Volume 4", path: "/COTE-Y3V4.epub" },
 ];
 
 export default function Home() {

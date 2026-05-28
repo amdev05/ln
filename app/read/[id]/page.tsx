@@ -7,6 +7,7 @@ import { ReactReader, ReactReaderStyle } from "react-reader";
 const EPUB_FILES: Record<string, { name: string; path: string }> = {
   y0v0: { name: "Year 0 Volume 0", path: "/COTE-Y0V0.epub" },
   y3v3: { name: "Year 3 Volume 3", path: "/COTE-Y3V3.epub" },
+  y3v4: { name: "Year 3 Volume 4", path: "/COTE-Y3V4.epub" },
 };
 
 export default function ReadPage() {
